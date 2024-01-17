@@ -7,7 +7,6 @@ public:
         {
             if(last[s[i]]==0){
                 last[s[i]]=i;
-                cout<<s[i]<<" "<<last[s[i]]<<" ";
             }
         }
         vector<int>v;

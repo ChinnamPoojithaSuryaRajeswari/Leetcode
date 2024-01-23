@@ -20,7 +20,10 @@ public:
         temp = head;
         while(temp)
         {
+            if(temp->val == 1)
+            {
             s=s+(pow(2,c)*temp->val);
+            }
             temp=temp->next;
             c-=1;
         }

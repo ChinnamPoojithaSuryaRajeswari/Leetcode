@@ -1,25 +1,21 @@
 class Solution {
 public:
     string firstPalindrome(vector<string>& words) {
-        int j,q,k;
-        string p;
-        for(int i=0;i<words.size();i++){
-            j=0;
-            k=words[i].size()-1;
-            q=0;
-            while(j<k){
-                if(words[i][j]!=words[i][k]){
-                    q=1;
-                    break;
-                }
-                j+=1;
-                k-=1;
+          string y;
+        for(auto it : words){
+            int i = 0;
+            int j = it.size()-1;
+            string x = it;
+            while(i < j){
+                swap(x[i],x[j]);
+                i++;
+                j--;
             }
-            if(q==0){
-                p = words[i];
+            if(x == it){
+                y = x;
                 break;
             }
-        }
-        return p;
+       }
+       return y;
     }
 };

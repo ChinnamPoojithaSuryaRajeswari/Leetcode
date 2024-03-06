@@ -9,31 +9,15 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        // ListNode* rabbit=head;
-        // ListNode* tortoise=head;
-        // while(rabbit!=NULL and rabbit->next!=NULL){
-        //     if(rabbit==tortoise){
-        //         return true;
-        //     }
-        //     else{
-        //         rabbit=rabbit->next->next;
-        //         tortoise=tortoise->next;
-        //     }
-        // }
-        // return false;
-        ListNode *slow,*fast;
-        slow=head;
-        fast=head;
-        while(fast!=NULL and fast->next!=NULL)
-        {
-            fast=fast->next->next;
-            slow=slow->next;
-            if(fast==slow)
-            {
+        ListNode* rabbit=head;
+        ListNode* tortoise=head;
+        while(rabbit!=NULL and rabbit->next!=NULL){
+            rabbit=rabbit->next->next;
+                tortoise=tortoise->next;
+            if(rabbit==tortoise){
                 return true;
             }
-            head=head->next;
         }
-            return false;
+        return false;
     }
 };

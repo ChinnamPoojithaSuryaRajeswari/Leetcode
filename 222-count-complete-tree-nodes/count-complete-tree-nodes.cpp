@@ -11,20 +11,19 @@
  */
 class Solution {
 public:
-    void inorder(TreeNode* root,vector<int>& vec){
+    void inorder(TreeNode* root,int& cnt){
         if(root==NULL)return;
         if(root->left==NULL and root->right==NULL){
-            vec.push_back(root->val);
+            cnt+=1;
             return;
         }
-        // cout<<root->val<<" ";
-        vec.push_back(root->val);
-        inorder(root->left,vec);
-        inorder(root->right,vec);
+        cnt+=1;
+        inorder(root->left,cnt);
+        inorder(root->right,cnt);
     }
     int countNodes(TreeNode* root) {
-        vector<int>vec;
-        inorder(root,vec);
-        return vec.size();
+        int cnt=0;
+        inorder(root,cnt);
+        return cnt;
     }
 };

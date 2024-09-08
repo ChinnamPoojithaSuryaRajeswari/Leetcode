@@ -11,33 +11,19 @@
  */
 class Solution {
 public:
-    void Sametrre(TreeNode* temp,TreeNode* res,int& flag){
-        if(temp==NULL and res==NULL){
-            return;
+    bool dfs(TreeNode* root1,TreeNode* root2) {
+        if(root1==NULL and root2==NULL){
+            return true;
         }
-        if(temp==NULL and res!=NULL){
-            flag=1;
-            return;
+        if(root1==NULL or root2==NULL){
+            return false;
         }
-        if(temp!=NULL and res==NULL){
-            flag=1;
-            return;
+        if(root1->val!=root2->val){
+            return false;
         }
-        if(temp!=NULL and res!=NULL){
-            if(temp->val!=res->val){
-                flag=1;
-                return;
-            }
-        }
-        Sametrre(temp->left,res->right,flag);
-        Sametrre(temp->right,res->left,flag);
+        return dfs(root1->left,root2->right) and dfs(root1->right,root2->left);
     }
     bool isSymmetric(TreeNode* root) {
-        int flag=0;
-        TreeNode* temp = root->left;
-        TreeNode* res = root->right;
-        Sametrre(temp,res,flag);
-        if(flag==1) return false;
-        return true;
+        return dfs(root->left,root->right);
     }
 };

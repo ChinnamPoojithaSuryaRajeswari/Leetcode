@@ -16,7 +16,6 @@ public:
         ListNode* temp = head;
         while(temp!=NULL){
             if(e==1){
-            cout<<i<<" "<<j<<endl;
                 while(temp and j<east){
                     spiral[i][j] = temp->val;
                     j+=1;
@@ -32,7 +31,6 @@ public:
                 e=0;
             }
             if(s==1){
-            cout<<i<<" "<<j<<endl;
                 while(temp and i<south){
                     spiral[i][j] = temp->val;
                     i+=1;
@@ -48,7 +46,6 @@ public:
                 w=1;
             }
             if(w==1){
-            cout<<i<<" "<<j<<endl;
                 while(temp and j>west){
                     spiral[i][j] = temp->val;
                     j-=1;;
@@ -64,7 +61,6 @@ public:
                 N=1;
             }
             if(N==1){
-            cout<<i<<" "<<j<<endl;
                 while(temp and i>north){
                     spiral[i][j] = temp->val;
                     i-=1;

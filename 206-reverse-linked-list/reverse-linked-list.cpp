@@ -16,17 +16,12 @@
  */
 class Solution {
 public:
-    ListNode* rec(ListNode* root){
+    ListNode* reverseList(ListNode* root) {
         if(root==NULL) return NULL;
         if(root->next==NULL) return root;
-        ListNode* finl = rec(root->next);
-        rec(root->next)->next = root;
+        ListNode* finl = reverseList(root->next);
+        reverseList(root->next)->next = root;
         root->next = NULL;
         return finl;
-    }
-    ListNode* reverseList(ListNode* head) {
-        ListNode* root=head;
-        return rec(head);
-        // return root;
     }
 };

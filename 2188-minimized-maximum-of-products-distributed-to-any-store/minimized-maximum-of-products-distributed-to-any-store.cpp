@@ -6,7 +6,7 @@ public:
         int ss = 0;
         for(int i=0;i<quantities.size();i++)
         {
-            ss += (quantities[i] - 1) / item + 1;
+            ss += quantities[i]%item!=0 ? quantities[i]/item+(1):quantities[i]/item;
             if(ss > n) return false;
         }
         return true;

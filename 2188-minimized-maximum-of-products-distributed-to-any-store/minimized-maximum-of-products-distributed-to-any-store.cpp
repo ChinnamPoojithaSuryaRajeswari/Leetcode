@@ -1,6 +1,6 @@
 class Solution {
 public:
-     bool solve(int n, vector<int>& quantities, int item)
+    bool solve(int n, vector<int>& quantities, int item)
     {
         if(item == 0) return false;
         int ss = 0;

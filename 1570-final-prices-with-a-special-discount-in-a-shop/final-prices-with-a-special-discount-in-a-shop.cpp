@@ -1,31 +1,32 @@
 class Solution {
 public:
     vector<int> finalPrices(vector<int>& prices) {
-         map<int,int>mpp;
         stack<int>st;
-        vector<int>vec;
+        vector<int>ans;
         for(int i=prices.size()-1;i>=0;i--){
             if(st.empty()){
+                ans.push_back(prices[i]);
                 st.push(prices[i]);
-                // mpp[prices[i]]=0;
-                vec.push_back(prices[i]);
             }
             else{
-                while(!st.empty() and prices[i] < st.top()){
-                    st.pop();
+                while(!st.empty()){
+                    if(st.top()>prices[i]){
+                        st.pop();
+                    }
+                    else{
+                        break;
+                    }
                 }
-                if(st.empty()){
-                    // mpp[prices[i]]=0;
-                    vec.push_back(prices[i]);
+                if(!st.empty()){
+                    ans.push_back(prices[i]-st.top());
                 }
                 else{
-                    // mpp[prices[i]]=st.top();
-                    vec.push_back(prices[i]-st.top());
+                    ans.push_back(prices[i]);
                 }
                 st.push(prices[i]);
             }
         }
-        reverse(vec.begin(),vec.end());
-        return vec;
+        reverse(ans.begin(),ans.end());
+        return ans;
     }
 };

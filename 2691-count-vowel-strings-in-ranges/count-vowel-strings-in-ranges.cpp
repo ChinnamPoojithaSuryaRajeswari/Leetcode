@@ -1,39 +1,20 @@
 class Solution {
 public:
     vector<int> vowelStrings(vector<string>& words, vector<vector<int>>& queries) {
-        vector<int> prefixCountSpl;
-        map<char,int>mpp;
-        int s=0;
-        mpp['a']=1;
-        mpp['e']=1;
-        mpp['i']=1;
-        mpp['o']=1;
-        mpp['u']=1;
-        for(int i=0;i<words.size();i++){
-            if(mpp[words[i][0]]!=0 and mpp[words[i][words[i].size()-1]]!=0){
-                s+=1;
-            }
-            prefixCountSpl.push_back(s);
+        int n=words.size();
+        vector <int> isVowel(n,0);
+        for(int i=0;i<n;i++){
+            int l=words[i].size()-1;
+            if((words[i][0]=='a' or words[i][0]=='e' or words[i][0]=='i' or words[i][0]=='o' or words[i][0]=='u') and (words[i][l]=='a' or words[i][l]=='e' or words[i][l]=='i' or words[i][l]=='o' or words[i][l]=='u'))
+                isVowel[i]=1;
         }
-        vector<int>ans;
+        vector <int> prefix(n+1,0);
+        for(int i=0;i<n;i++)
+            prefix[i+1]=prefix[i]+isVowel[i];
+        vector <int> res(queries.size());
         for(int i=0;i<queries.size();i++){
-            if(queries[i][0]==queries[i][1]){
-                if(queries[i][0]==0){
-                    ans.push_back(prefixCountSpl[0]);
-                }
-                else{
-                    ans.push_back(prefixCountSpl[queries[i][0]]-prefixCountSpl[queries[i][0]-1]);
-                }
-            }
-            else{
-                if(queries[i][0]==0){
-                    ans.push_back(prefixCountSpl[queries[i][1]]);
-                }
-                else{
-                    ans.push_back(prefixCountSpl[queries[i][1]]-prefixCountSpl[queries[i][0]-1]);
-                }
-            }
+            res[i]=prefix[queries[i][1]+1]-prefix[queries[i][0]];
         }
-        return ans;
+        return res;
     }
 };

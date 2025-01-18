@@ -1,7 +1,7 @@
 class Solution {
 public:
     int minCost(vector<vector<int>>& grid) {
-       vector<vector<int>> dp(grid.size(),vector<int>(grid[0].size(), INT_MAX));
+        vector<vector<int>> dp(grid.size(),vector<int>(grid[0].size(), INT_MAX));
        queue<pair<int,int>>q;
        q.push({0,0});
        dp[0][0]=0;

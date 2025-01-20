@@ -1,25 +1,22 @@
 class Solution {
 public:
     int firstCompleteIndex(vector<int>& arr, vector<vector<int>>& mat) {
-        map<int,pair<int,int>>mpp;
-        vector<int>rows(mat.size(),0);
-        vector<int>col(mat[0].size(),0);
+        map<int,pair<int,int>>mp;
         for(int i=0;i<mat.size();i++){
             for(int j=0;j<mat[i].size();j++){
-                mpp[mat[i][j]]={i,j};
+                mp[mat[i][j]]={i,j};
             }
         }
+        int m=mat.size(),n=mat[0].size();
+        vector<int>r(m,0);
+        vector<int>c(n,0);
         for(int i=0;i<arr.size();i++){
-            rows[mpp[arr[i]].first]++;
-            col[mpp[arr[i]].second]++;
-            if(rows[mpp[arr[i]].first]==mat[0].size()){
-                return i;
-            }
-            
-            if(col[mpp[arr[i]].second]==mat.size()){
+            r[mp[arr[i]].first]+=1;
+            c[mp[arr[i]].second]+=1;
+            if(r[mp[arr[i]].first]==n or c[mp[arr[i]].second]==m){
                 return i;
             }
         }
-        return -1;
+        return 0;
     }
 };

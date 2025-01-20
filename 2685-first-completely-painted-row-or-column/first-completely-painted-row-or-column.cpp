@@ -15,6 +15,7 @@ public:
             if(rows[mpp[arr[i]].first]==mat[0].size()){
                 return i;
             }
+            
             if(col[mpp[arr[i]].second]==mat.size()){
                 return i;
             }

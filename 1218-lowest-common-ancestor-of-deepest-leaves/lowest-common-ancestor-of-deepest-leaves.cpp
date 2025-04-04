@@ -11,16 +11,16 @@
  */
 class Solution {
 public:
-    pair<int, TreeNode*> dfs(TreeNode* node) {
-        if (!node) return {0, NULL};
-        auto left = dfs(node->left);
-        auto right = dfs(node->right);
+    pair<int, TreeNode*> dfs(TreeNode* root) {
+        if (!root) return {0, NULL};
+        auto left = dfs(root->left);
+        auto right = dfs(root->right);
         if (left.first > right.first) {
             return {left.first + 1, left.second};
         } else if (left.first < right.first) {
             return {right.first + 1, right.second};
         } else {
-            return {left.first + 1, node}; 
+            return {left.first + 1, root}; 
         }
     }
     TreeNode* lcaDeepestLeaves(TreeNode* root) {

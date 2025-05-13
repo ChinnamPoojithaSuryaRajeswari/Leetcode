@@ -13,15 +13,10 @@ public:
     }
     int longestIncreasingPath(vector<vector<int>>& matrix) {
         vector<vector<int>>visited(matrix.size(),vector<int>(matrix[0].size(),0));
+        int ans = 0;
         for(int i = 0 ; i < matrix.size() ; i++){
             for(int j = 0 ; j < matrix[0].size() ; j++){
-                visited[i][j] = call(matrix,visited,i,j,INT_MIN);
-            }
-        }
-        int ans = 0 ;
-        for(int i=0;i<visited.size();i++){
-            for(int j=0;j<visited[0].size();j++){
-                ans = max(ans,visited[i][j]);
+                ans= max(ans,call(matrix,visited,i,j,INT_MIN));
             }
         }
         return ans==0 ? 1:ans;

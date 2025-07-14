@@ -11,21 +11,16 @@
 class Solution {
 public:
     int getDecimalValue(ListNode* head) {
-        int c=0,s=0;
-        ListNode* temp=head;
-        while(temp->next){
-            c+=1;
-            temp=temp->next;
+        vector<int>v;
+        int s=0;
+        while(head!=NULL){
+            v.push_back(head->val);
+            head=head->next;
         }
-        temp = head;
-        while(temp)
-        {
-            if(temp->val == 1)
-            {
-            s=s+(pow(2,c)*temp->val);
-            }
-            temp=temp->next;
-            c-=1;
+        int c=0;
+        for(int i=v.size()-1;i>=0;i--){
+            s+=v[i]*(int)pow(2,c);
+            c+=1;
         }
         return s;
     }

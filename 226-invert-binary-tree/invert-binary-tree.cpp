@@ -11,16 +11,12 @@
  */
 class Solution {
 public:
-    void mirror(TreeNode* node){
-        if(node==NULL) return;
-        TreeNode* temp = node->left;
-        node->left=node->right;
-        node->right=temp;
-        mirror(node->left); 
-        mirror(node->right);
-    }
     TreeNode* invertTree(TreeNode* root) {
-        mirror(root);
-        return root;
+        if (root == NULL) return NULL;
+        TreeNode* left = invertTree(root->left);
+        TreeNode* right = invertTree(root->right);
+        root->left = right;
+        root->right = left;
+        return root;   
     }
 };

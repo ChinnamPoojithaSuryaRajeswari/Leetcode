@@ -11,14 +11,12 @@
  */
 class Solution {
 public:
-    bool dfs(TreeNode* root, pair<long long,long long> data){
-        if(root==NULL) return true;
-        if(root->val>=data.second or root->val<=data.first){
-            return false;
-        }
-        return dfs(root->left,{data.first,root->val}) and dfs(root->right,{root->val,data.second});
+    bool callHelp(TreeNode* root,long long l,long long r){
+        if(root==NULL)return true;
+        if(root->val>=r or root->val<=l)return false;
+        return callHelp(root->left,l,root->val) and callHelp(root->right,root->val,r);
     }
     bool isValidBST(TreeNode* root) {
-        return dfs(root->left,{LLONG_MIN,root->val}) and dfs(root->right,{root->val,LLONG_MAX});
+        return callHelp(root->left,LLONG_MIN,root->val) and callHelp(root->right,root->val,LLONG_MAX);
     }
 };

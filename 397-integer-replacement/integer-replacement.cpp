@@ -1,25 +1,23 @@
 class Solution {
-public:
-    void requrmnt(long long n,vector<int>&v,int c){
+public: 
+    long long fun(long long n,unordered_map<long long,int>&memo){
         if(n==1){
-            v.push_back(c);
-            return;
+            return 0;
         }
-        else if(n<1){
-            return ;
+        if(memo[n]!=0){
+            return memo[n];
         }
-        if(n%2==0){
-            requrmnt(n/2,v,c+1);
+        int x=1;
+        if(n%2){
+            x+=min(fun(n-1,memo),fun(n+1,memo));
         }
         else{
-            requrmnt(n+1,v,c+1);
-            requrmnt(n-1,v,c+1);
+            x+=fun(n/2,memo);
         }
+        return memo[n]=x;
     }
     int integerReplacement(int n) {
-        vector<int>v;
-        long long num = n;
-        requrmnt(num,v,0);
-        return *min_element(v.begin(),v.end());
+        unordered_map<long long,int>memo;
+        return fun(n,memo);
     }
 };

@@ -1,33 +1,29 @@
 class Solution {
 public:
-    int networkDelayTime(vector<vector<int>>& edges, int n, int k) {
-        map<int,vector<pair<int,int>>>adj;
-        int maxi = INT_MIN;
-        for(int i=0;i<edges.size();i++){
-            adj[edges[i][0]].push_back({edges[i][1],edges[i][2]});
+    int networkDelayTime(vector<vector<int>>& times, int n, int k) {
+        vector<vector<pair<int, int>>> vec(n + 1); 
+        for(int i=0;i<times.size();i++){
+            vec[times[i][0]].push_back({times[i][1],times[i][2]});
         }
-        vector<int>vec(n+1,INT_MAX);
-        queue<int>q;
-        int cnt=0;
-        q.push(k);
-        vec[k]=0;
+        vector<int>visited(n+1,INT_MAX);
+        queue<pair<int,int>>q;
+        q.push({k,0});
+        visited[k] = 0;
         while(!q.empty()){
-            for(int i=0;i<vec.size();i++){
-            // maxi = max(maxi,vec[i]);
-            cout<<vec[i]<<" ";
-            }
-            cout<<endl;
-            for(int i=0;i<adj[q.front()].size();i++){
-                if(vec[adj[q.front()][i].first]>vec[q.front()]+adj[q.front()][i].second){
-                    vec[adj[q.front()][i].first] = vec[q.front()]+adj[q.front()][i].second;
-                    q.push(adj[q.front()][i].first);
+            int curr = q.front().first;
+            int len = q.front().second;
+            q.pop();
+            for(int i=0;i<vec[curr].size();i++){
+                if(visited[vec[curr][i].first] > len+vec[curr][i].second){
+                    visited[vec[curr][i].first] = len+vec[curr][i].second;
+                    q.push({vec[curr][i].first,len+vec[curr][i].second});
                 }
             }
-            q.pop();
         }
-        for(int i=1;i<vec.size();i++){
-            maxi = max(maxi,vec[i]);
+        int ans = INT_MIN;
+        for(int i=1;i<n+1;i++){
+            ans = max(ans,visited[i]);
         }
-        return maxi==INT_MAX ? -1:maxi;
+        return ans==INT_MAX ? -1:ans;
     }
 };

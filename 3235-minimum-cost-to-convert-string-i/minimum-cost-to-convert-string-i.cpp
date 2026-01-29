@@ -23,12 +23,12 @@ public:
                 q.pop();
             }
         }
-        for(int i=0;i<26;i++){
-            for(int j=0;j<26;j++){
-                cout<<pain[i][j]<<" ";
-            }
-            cout<<endl;
-        }
+        // for(int i=0;i<26;i++){
+        //     for(int j=0;j<26;j++){
+        //         cout<<pain[i][j]<<" ";
+        //     }
+        //     cout<<endl;
+        // }
         for(int i=0;i<source.size();i++){
             if(pain[source[i]-'a'][target[i]-'a']==INT_MAX)return -1;
             ans+=pain[source[i]-'a'][target[i]-'a'];

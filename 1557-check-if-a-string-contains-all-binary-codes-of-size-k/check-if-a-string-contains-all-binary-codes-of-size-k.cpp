@@ -6,32 +6,20 @@ public:
         for(int i = 0; i + k <= s.size(); i++) {
             mpp[s.substr(i, k)]++;
         }
-        for(int i=0;i<=pow(2,k)-1;i++){
-            int ressy = i, len=0 ;
+        int total = (1<<k);
+        for(int i = 0; i < total; i++) {
+            int num = i;
             string pooji = "";
-            while(ressy){
-                if(ressy&1){
-                    pooji+='1';
-                }
-                else{
-                    pooji+='0';
-                }
-                len++;
-                ressy = ressy>>1;
+            for(int j = 0; j < k; j++) {
+                if(num & 1)
+                    pooji += '1';
+                else
+                    pooji += '0';
+                num >>= 1;
             }
-            while(len<k){
-                pooji+='0';
-                len++;
-            }
-            int l = 0;
-            int m = pooji.size() - 1;
-            while (l < m) {
-                swap(pooji[l], pooji[m]);
-                l++;
-                m--;
-            }
-            cout<<pooji<<" ";
-            if(mpp[pooji]==0)return false;
+            reverse(pooji.begin(), pooji.end());
+            if(mpp.find(pooji) == mpp.end())
+                return false;
         }
         return true;
     }

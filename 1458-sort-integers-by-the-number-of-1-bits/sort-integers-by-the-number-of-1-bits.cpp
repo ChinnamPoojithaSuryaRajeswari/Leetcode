@@ -11,6 +11,7 @@ public:
             work+=1;
         }
         for(int i=0;i<arr.size();i++)
+        
         {
             k=arr[i];
             while(k)

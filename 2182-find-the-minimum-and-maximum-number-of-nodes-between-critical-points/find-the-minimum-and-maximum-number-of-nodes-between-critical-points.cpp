@@ -11,35 +11,38 @@
 class Solution {
 public:
     vector<int> nodesBetweenCriticalPoints(ListNode* head) {
-        if(head==NULL) return {-1,-1};
-        if(head->next == NULL) return {-1,-1};
-        if(head->next->next == NULL) return {-1,-1};
-        ListNode* temp = head;
-        vector<int>vec;
-        vector<int> ans;
-        int pre = temp->val;
-        temp = temp->next;
-        int len=0;
-        while(temp->next){
+        ListNode* prev=head;
+        ListNode* current=head->next;
+        int mnnnii=INT_MAX;
+        int len = 1;
+        int maxDist=-1,minDist=-1,mini=INT_MAX,maxi=-1;
+        while(current){
             len+=1;
-            if(temp->val > pre and temp->val > temp->next->val){
-                vec.push_back(len);
+            if(current->next){
+                if(current->val > current->next->val and current->val > prev->val){
+                    minDist = max(minDist,maxDist);
+                    mnnnii = min(mnnnii,len);
+                    maxDist = len;
+                }
+                if(current->val < current->next->val and current->val < prev->val){
+                    minDist = max(minDist,maxDist);
+                    mnnnii = min(mnnnii,len);
+                    maxDist = len;
+                }
+                if(maxDist!=-1 and minDist!=-1 and maxDist!=minDist){
+                cout<<minDist<<" "<<maxDist<<endl;
+                    mini = min(mini,abs(minDist-maxDist));
+                }
             }
-            if(temp->val < pre and temp->val < temp->next->val){
-                  vec.push_back(len);
+            else{
+                break;
             }
-            pre = temp->val;
-            temp=temp->next;
+            prev = current;
+            current = current->next;
         }
-        if(vec.size()<2) return {-1,-1};
-        int mini = vec[1]-vec[0],maxi = vec[vec.size()-1]-vec[0];
-        for(int i=0;i<vec.size()-1;i++){
-            if(vec[i+1]-vec[i] < mini ){
-                mini = vec[i+1]-vec[i];
-            }
+        if(maxDist!=0 and mnnnii!=INT_MAX and maxDist!=mnnnii){
+            maxi = maxDist - mnnnii;
         }
-        ans.push_back(mini);
-        ans.push_back(maxi);
-        return ans;
+        return {mini==INT_MAX ? -1:mini,maxi};
     }
 };

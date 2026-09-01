@@ -1,37 +1,58 @@
 class Solution {
 public:
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
-        int m = obstacleGrid.size(),n=obstacleGrid[0].size();
-        if(obstacleGrid[0][0]==1)return 0;
-        vector<vector<long long>>vec(m,vector<long long>(n,-1));
-        vec[0][0]=1;
-        long long k =1;
-        for(int i=1;i<m;i++){
-            if(obstacleGrid[i][0]!=1){
-                vec[i][0]=min(k,vec[i-1][0]);
-            }
-            else{
-                vec[i][0]=0;
+        int flip=0;
+        vector<vector<int>>dp(obstacleGrid.size(),vector<int>(obstacleGrid[0].size(),0));
+        for(int i=0;i<obstacleGrid.size();i++){
+            int flag=0;
+            for(int j=0;j<obstacleGrid[i].size();j++){
+                if(i==0){
+                    if(obstacleGrid[i][j]==1){
+                        flag=1;
+                        dp[i][j] = !obstacleGrid[i][j];
+                    }
+                    else{
+                        if(flag){
+                            dp[i][j]=0;
+                        }
+                        else{
+                            dp[i][j]=1;
+                        }
+                    }
+                }
+                if(j==0){
+                    if(obstacleGrid[i][j]==1){
+                        flip=1;
+                        dp[i][j] = !obstacleGrid[i][j];
+                    }
+                    else{
+                        if(flip){
+                            dp[i][j]=0;
+                        }
+                        else{
+                            dp[i][j]=1;
+                        }
+                    }
+                }
             }
         }
-        for(int i=1;i<n;i++){
-            if(obstacleGrid[0][i]!=1){
-                vec[0][i]=min(k,vec[0][i-1]);
-            }
-            else{
-                vec[0][i]=0;
-            }
-        }
-        for(int i=1;i<m;i++){
-            for(int j=1;j<n;j++){
-                if(obstacleGrid[i][j]!=1){
-                    vec[i][j]=vec[i-1][j]+vec[i][j-1];
+        for(int i=1;i<obstacleGrid.size();i++){
+            for(int j=1;j<obstacleGrid[i].size();j++){
+                if(obstacleGrid[i][j]==1){
+                    dp[i][j] = 0;
                 }
                 else{
-                    vec[i][j]=0;
+                    dp[i][j] = dp[i][j-1]+dp[i-1][j];
                 }
             }
         }
-        return vec[m-1][n-1];
+        
+        for(int i=0;i<obstacleGrid.size();i++){
+            for(int j=0;j<obstacleGrid[i].size();j++){
+                cout<<obstacleGrid[i][j]<<" ";
+            }
+            cout<<endl;
+        }
+        return dp[obstacleGrid.size()-1][obstacleGrid[0].size()-1];
     }
 };

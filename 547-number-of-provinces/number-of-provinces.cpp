@@ -1,31 +1,29 @@
 class Solution {
 public:
-    void solve(map<int,int>& visited,int val,map<int,vector<int>>adj){
-        visited[val]=1;
-        for(int i=0;i<adj[val].size();i++){
-            if(visited[adj[val][i]]==0){
-                solve(visited,adj[val][i],adj);
-            }
-        }
-    }
     int findCircleNum(vector<vector<int>>& isConnected) {
-        map<int,vector<int>>adj;
+        vector<int>adj(isConnected.size(),0);
+        int flag=0;
         for(int i=0;i<isConnected.size();i++){
-            for(int j=0;j<isConnected[i].size();j++){
-                if(isConnected[i][j]==1 && i!=j){
-                    adj[i].push_back(j);
-                    adj[j].push_back(i);
+            flag++;
+            queue<int>q;
+            if(adj[i]==0)q.push(i);
+            while(!q.empty()){
+                for(int j=0;j<isConnected[q.front()].size();j++){
+                    if(adj[j]==0 and isConnected[q.front()][j]!=0){
+                        q.push(j);
+                        adj[j] = flag;
+                    }
                 }
+                q.pop();
             }
         }
-        int cnt=0;
-        map<int,int>visited;
-        for(int i=0;i<isConnected[0].size();i++){
-            if(visited[i]==0){
-                cnt++;
-                solve(visited,i,adj);
-            }
+        set<int>st;
+        for(int i=0;i<adj.size();i++){
+            st.insert(adj[i]);
         }
-        return cnt;
+        int val = 0;
+        for(int i=0;i<adj.size();i++)if(adj[i]==0)val++;
+        for(auto it:st)val++;
+        return val;
     }
 };

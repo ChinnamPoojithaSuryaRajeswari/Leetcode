@@ -12,7 +12,6 @@ public:
                 }
                 else{
                     st.push(s[i]);
-                    // cnt+=1;
                 }
             }
         }
